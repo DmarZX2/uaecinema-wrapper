@@ -10,7 +10,7 @@ import dateutil.parser
 
 from imdb import Cinemagoer
 import jellyfish
-
+import config
 
 
 class Vox(object):
@@ -30,7 +30,7 @@ class Vox(object):
         self.links = []
         self.info = []
         self.desc = []
-        self.tmdb_apikey = "d0d0ea1e5157d5c8a1206d6cbf5877d0"
+        self.tmdb_apikey = config.keys['tmdb']
         self.tmdb_link = "https://api.themoviedb.org/3/search/movie?api_key=" + self.tmdb_apikey + "{}"
 
 
