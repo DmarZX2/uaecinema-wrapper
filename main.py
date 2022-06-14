@@ -70,8 +70,15 @@ class Vox(object):
         for i in self.whatson_names():
             shui.append(re.sub('[^A-Za-z0-9]+', '', i.lower()))
 
-        with open('ids.json', "r") as file:
-            data = json.load(file)
+        try:
+            with open('ids.json', "r") as file:
+                data = json.load(file)
+        except json.JSONDecodeError:
+            with open('ids.json', "w+") as file1:
+                json.dump({"ids": [{"example": 1}]}, file1)
+            with open('ids.json', "r") as file:
+                data = json.load(file)
+
 
         json_keys = [k for d in data["ids"] for k in d]  # keys in json file
         for i in [x + y for x, y in zip(shui, shui1)]:  # Name + language
@@ -493,3 +500,6 @@ class Vox(object):
                                                                   emirates_to_show,
                                                                   tmdb,
                                                                   imdb), (self.whatson_links()))
+
+
+Vox().validate_whatson_injson()
