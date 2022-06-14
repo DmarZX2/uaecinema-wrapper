@@ -1,4 +1,5 @@
 import io
+import os
 from datetime import date, datetime, timedelta
 from multiprocessing.pool import ThreadPool
 import requests
@@ -74,6 +75,13 @@ class Vox(object):
             with open('ids.json', "r") as file:
                 data = json.load(file)
         except json.JSONDecodeError:
+            with open('ids.json', "w+") as file1:
+                json.dump({"ids": [{"example": 1}]}, file1)
+            with open('ids.json', "r") as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            with open("ids.json", "w+") as f:
+                pass
             with open('ids.json', "w+") as file1:
                 json.dump({"ids": [{"example": 1}]}, file1)
             with open('ids.json', "r") as file:
